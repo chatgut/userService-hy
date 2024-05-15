@@ -2,10 +2,8 @@ package com.example.labb2webservices.controller;
 
 import com.example.labb2webservices.entity.User;
 import com.example.labb2webservices.repository.UserRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +17,12 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    @PostMapping("/createuser")
+    ResponseEntity<Void> createUser(@RequestBody User user) {
+        userRepository.save(user);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/allusers")
     List<User> userList() {
         return userRepository.findAll();
@@ -29,6 +33,25 @@ public class UserController {
         return userRepository.findById(id);
     }
 
+    @DeleteMapping("/deleteuser/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        userRepository.deleteById(id);
+    }
 
+    @PatchMapping("/changeuser/{id}")
+    ResponseEntity<Void> updateUser(@RequestBody User updatedUser, @PathVariable Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            User existingUser = optionalUser.get();
+
+            existingUser.setUserName(updatedUser.getUserName());
+            userRepository.save(existingUser);
+
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

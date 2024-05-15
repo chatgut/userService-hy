@@ -24,9 +24,6 @@ public class User {
     public User() {
     }
 
-    //Behövs vanlig konstruktor också??
-    //Hashcode och toString??
-
     public Long getId() {
         return id;
     }
