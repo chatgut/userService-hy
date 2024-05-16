@@ -32,4 +32,4 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag webservices:1 .
+        docker build . --file Dockerfile --tag webservices:1
