@@ -1,0 +1,30 @@
+name: Build Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build_docker_image:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '21'
+        
+    - name: Build Spring Boot project
+      run: |
+        ./mvnw clean package
+
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile --tag webservices:1  .
