@@ -1,6 +1,6 @@
 services:
   app:
-    image: webservices:1
+    image: hannastigland/webservices:1
     depends_on:
       - mysql
     ports:
