@@ -6,7 +6,14 @@ This User Service oversees the management of user information within the chat ap
 
 Using MYSQL database
 
-## Endpoints:
+Runs on port 8081
+
+Pull image:
+  ```
+  docker pull hannastigland/webservices:1
+  ```
+
+# Endpoints:
 
 ### Create User:
 This endpoint allows clients to create a new user in the system.
